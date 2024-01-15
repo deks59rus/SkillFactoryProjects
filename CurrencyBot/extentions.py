@@ -7,13 +7,13 @@ class Request_To_API:
     def get_price(base: str, quote:str, amount:str):
     #Отлов ошибок
         if quote == base:
-            raise (ConvertionException("Попытка конвертации идентичных валют!"))
+            raise (APIException("Попытка конвертации идентичных валют!"))
         try:
             amount = float(amount)
         except ValueError:
-            raise (ConvertionException("Количество валюты не является числовым значением!"))
+            raise (APIException("Количество валюты не является числовым значением!"))
         if amount<=0:
-            raise (ConvertionException("Некорректное количество валюты!"))
+            raise (APIException("Некорректное количество валюты!"))
     # Формирование корректной строки запроса
         url = "https://api.currencyapi.com/v3/latest?apikey=" + API_KEY + "&currencies=" + quote + '&base_currency=' + base
 
@@ -29,7 +29,7 @@ class Request_To_API:
         return round(result, 2)
 
 
-class ConvertionException(Exception):
+class APIException(Exception):
     pass
 # dictionary = {}
 # with open("values.txt", 'r') as f:

@@ -34,13 +34,13 @@ def user_input(message: telebot.types.Message):
         quote, base, amount = user_input[0], user_input[1], user_input[2]
         quote, base, amount = quote.strip(), base.strip(), amount.strip()
         if len(user_input) != 3:
-            raise (extentions.ConvertionException("Некорректное число параметров!"))
+            raise (extentions.APIException("Некорректное число параметров!"))
         if (quote not in currencies) or (base not in currencies):
-            raise (extentions.ConvertionException("Такой валюты не существует/ некоректное наименование валюты!"))
+            raise (extentions.APIException("Такой валюты не существует/ некоректное наименование валюты!"))
 
         result = extentions.Request_To_API.get_price(currencies[quote], currencies[base], amount)
         answer = f" {amount} {quote} стоят {result} {base}"
-    except extentions.ConvertionException as e:
+    except extentions.APIException as e:
         bot.reply_to(message, f"Ошибка пользователя\n{e}")
     except Exception as e:
         bot.reply_to(message, f"Не удалось обработать команду\n{e}")
