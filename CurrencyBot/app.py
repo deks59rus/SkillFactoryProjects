@@ -1,5 +1,6 @@
 import telebot, pickle, extentions
 from config import token, currencies
+from background import keep_alive
 
 
 bot = telebot.TeleBot(token)
@@ -46,7 +47,7 @@ def user_input(message: telebot.types.Message):
         bot.reply_to(message, f"Не удалось обработать команду\n{e}")
     else:
         bot.send_message(message.chat.id, answer)
-
+keep_alive()
 bot.polling(none_stop=True)
 
 
